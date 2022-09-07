@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="client\styles.css">
+    
+    
+</head>
+
+<body>
+    <nav id='nav'>
+        <div class='brand nav-group'>
+          Brand
+        </div>
+        <div class='menus nav-group'>
+          <div class="hamburger">
+            <div class='bar'></div>
+            <div class='bar'></div>
+            <div class='bar'></div>
+          </div>
+          <a class='menu-item' href='#'>About</a>
+          <a class='menu-item' href='#'>Projects</a>
+          <a class='menu-item' href='#'>FAQs</a>
+          <a class='menu-item' href='#'>Contact</a>
+        </div>
+        <div class="hamburger nav-group">
+          <div></div>
+          <div></div>
+        </div>
+      </nav>
+      <section class='sect-1'>
+        <h2>
+          Body One
+        </h2>
+      </section>
+      <section class='sect-2'>
+        <h2>
+          Body Two
+        </h2>
+      </section>
+
+      <script>
+
+const navHeight = $("nav#nav").height();
+console.log({navHeight})
+const $navGroup = $('nav .nav-group')
+const navOrigPadding = ($navGroup.innerWidth() - $navGroup.width())/2;
+
+$('.hamburger').on('click', function() {
+  $('.menus.nav-group').toggleClass('show');
+})
+
+const minNavPadding = 10;
+$('nav').css({'background-color': 'rgba(256, 256, 256, 0)'})
+
+$(window).scroll(function() {
+  const windowScroll = $(window).scrollTop()
+  if (windowScroll < navHeight) {
+    const padding = navOrigPadding - windowScroll/2
+    let newPadding = padding >= minNavPadding ? padding : minNavPadding;
+    newPadding = newPadding > navOrigPadding ? navOrigPadding : newPadding;
+    const opacity = 1-(newPadding-minNavPadding)/(navOrigPadding-minNavPadding);
+    const newOpacity = opacity >= 1 ? 1 : opacity;
+    $('nav').css({'background-color': `rgba(256, 256, 256, ${newOpacity})`});
+    $('nav .nav-group').css({padding: `${newPadding}px`})
+  }
+})
+
+
+      </script>
+    
+</body>
+</html>
